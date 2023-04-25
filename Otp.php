@@ -1,6 +1,8 @@
 <?php
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
+
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -47,9 +49,22 @@ for ($i = 0; $i < 6; $i++) {
     $mail->Subject = 'Busx authentication';
     $mail->Body    = 'Your <b>OTP Is : </b>'. '<strong>' . $random_number . '</strong>' ;
    
+    $_SESSION['generatedOTP'] = $random_number;
 
     $mail->send();
+?>
+    <form method="POST" action="verify.php">
+    <label for="otp">Enter OTP:</label>
+    <input type="text" id="otp" name="otp" required>
+    <!-- <input type="hidden" name="generatedOtp" value=""> -->
+    <br>
+    <button type="submit" name="submit">Verify OTP</button>
+</form>
+<?php
     echo 'Message has been sent';
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+?>
+<script>
+</script>

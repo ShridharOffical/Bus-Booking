@@ -53,15 +53,16 @@ if (isset($_POST['submit'])) {
 
   // Display the data in a table format
   echo "<table>";
-  echo "<tr><th>Seat_no</th><th>Name</th><th>Age</th><th>Status</th><th>Root</th></tr>";
+  echo "<tr><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
   $i = 0;
   foreach ($data  as $row) {
     echo "<tr>";
     echo "<td>" . $row['Seat_no'] . "</td>";
     echo "<td>" . $row['Name'] . "</td>";
     echo "<td>" . $row['Age'] . "</td>";
+    echo "<td>" . $row['Date'] . "</td>";
+    echo "<td>" . $row['Route'] . "</td>";
     echo "<td>" . $row['Status'] . "</td>";
-    echo "<td>" . $rootanddate[$i] . "</td>";
     echo "</tr>";
     $i++;
   }
