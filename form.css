@@ -1,0 +1,71 @@
+
+body{
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-weight: bold;
+    background-image: url("img/Form.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: auto;
+    color: white;
+    margin: 0.9rem 0.9rem;
+}
+
+.Container{
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+    height: auto;
+    background-color: rgb(36, 39, 26);
+    justify-content: center;
+}
+
+#bt{
+    display: flex;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.input{
+
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    padding: 0.5rem 0.5rem;
+    border-radius: 5px;
+}
+
+.form{
+    padding: 0.6rem 0.6rem;
+    border-radius: 10px;
+}
+#route{
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.6rem;
+}
+
+
+@media screen and (min-width:900px) {
+    .form-group{
+        width: 800px;
+        height: 400px;
+        justify-content: center;
+        align-items: center;
+    }
+    .Container{
+        flex-direction: row;
+    }
+    body{
+        background-image: url("img/back.jpg");
+        background-size: cover;
+       margin-left: 20%;
+       margin-right: 20%;
+    }
+}
