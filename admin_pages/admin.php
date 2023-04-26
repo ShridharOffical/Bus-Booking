@@ -274,6 +274,7 @@ require '../db_scripts/view_count.php';
                                             <th class="border-top-0">Email</th>
                                             <th class="border-top-0">Age</th>
                                             <th class="border-top-0">Gender</th>
+                                            <th class="border-top-0">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="an">
@@ -307,6 +308,9 @@ require '../db_scripts/view_count.php';
                                                         </td>
                                                         <td>
                                                             <?php echo $rows['Gender']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $rows['Status']; ?>
                                                         </td>
                                                     </tr>
                                                     
