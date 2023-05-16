@@ -100,14 +100,13 @@ if ($emailfound == true) {
         $mail->Body    = 'Your <b>OTP Is : </b>' . '<strong>' . $random_number . '</strong>';
 
         $_SESSION['generatedOTP'] = $random_number;
-        $_SESSION['scriptemail'] = $getemail;
+        $_SESSION['usermail'] = $getemail;
 
         $mail->send();
 ?>
         
         
 <?php
-        echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
