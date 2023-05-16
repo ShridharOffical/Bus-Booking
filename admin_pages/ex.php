@@ -2,6 +2,7 @@
 
 
 <?php
+session_start();
 // Check if page was accessed directly
 if(!isset($_SERVER['HTTP_REFERER'])) {
     // Redirect to homepage or error page
@@ -21,7 +22,7 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
 
     <form action="" method="POST">
         <label for="email">Enter your email:</label>&nbsp;
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" value="<?php echo $_SESSION['usermail']?>"required>
         <br>
         <input type="submit" name="submit" value="Run Script">
     </form>
@@ -34,17 +35,12 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
     $username = "root";
     $password = "";
     $dbname = "learn";
+    $usermail = $_SESSION['usermail'];
   
   $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 if (isset($_POST['submit'])) {
 
-  // Retrieve the email from session variable
-  $email=$_SESSION["scriptemail"];
-  echo " hiiiiiiiiiiiiiiiii". $email ;
   //$pdo = new PDO("$host;$dbname, $username, $password);
-
-  
-
 
   // Use the query() method to retrieve a list of table names
   $table_query = $pdo->query("SHOW TABLES");
@@ -58,7 +54,7 @@ if (isset($_POST['submit'])) {
     // Retrieve the table name
     $table_name = $table_row[0];
     // Execute a query to search for matching emails in the current table
-    $email_query = $pdo->query("SELECT * FROM $table_name WHERE Email = '$email'");
+    $email_query = $pdo->query("SELECT * FROM $table_name WHERE Email = '$usermail'");
 
     // Check if any matching emails were found
     while ($email_row = $email_query->fetch()) {
@@ -87,6 +83,7 @@ if (isset($_POST['submit'])) {
 }
 
 
+session_abort(); // Calling the session abort function here, comment this if we want to save the aray data for further use.
 ?>
 
 

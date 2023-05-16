@@ -1,3 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="verification" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="otp.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="otpcls">
+<form method="POST" action="verify.php">
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" required>
+            <!-- <input type="hidden" name="generatedOtp" value=""> -->
+            <br>
+            <button type="submit" name="submit">Verify OTP</button>
+        </form>
+        </div>
+</body>
+</html>
+
+
 <?php
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -76,26 +100,26 @@ if ($emailfound == true) {
         $mail->Body    = 'Your <b>OTP Is : </b>' . '<strong>' . $random_number . '</strong>';
 
         $_SESSION['generatedOTP'] = $random_number;
-        $_SESSION['scriptemail'] = $getemail;
+        $_SESSION['usermail'] = $getemail;
 
         $mail->send();
 ?>
-        <form method="POST" action="verify.php">
-            <label for="otp">Enter OTP:</label>
-            <input type="text" id="otp" name="otp" required>
-            <!-- <input type="hidden" name="generatedOtp" value=""> -->
-            <br>
-            <button type="submit" name="submit">Verify OTP</button>
-        </form>
+        
+        
 <?php
-        echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 } else {
-    Redirect("GetOtp.html", false);
+
+    ?> <script>
+         alert("Please Enter Correct Email !  We Dont have any Bookings from this Email Please check your email .");
+         window.location.href ="GetOtp.html";
+    </script> <?php
+  //  Redirect("GetOtp.html", false);
     
 }
 ?>
-<script>
-</script>
+
+
+
