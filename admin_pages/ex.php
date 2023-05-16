@@ -1,4 +1,19 @@
 
+
+
+<?php
+// Check if page was accessed directly
+if(!isset($_SERVER['HTTP_REFERER'])) {
+    // Redirect to homepage or error page
+    header('Location: /get');
+    exit();
+}
+
+// Page content here
+
+
+?> 
+
 <header>
         <p>BusX Bookings <br> || Miles of smiles! Always going your way! ||</p>
     </header>
@@ -10,8 +25,9 @@
         <br>
         <input type="submit" name="submit" value="Run Script">
     </form>
-
     <?php
+
+  
     
      
     $host = "localhost";
@@ -23,7 +39,8 @@
 if (isset($_POST['submit'])) {
 
   // Retrieve the email from session variable
-  $email=$_POST["email"];
+  $email=$_SESSION["scriptemail"];
+  echo " hiiiiiiiiiiiiiiiii". $email ;
   //$pdo = new PDO("$host;$dbname, $username, $password);
 
   
@@ -68,6 +85,7 @@ if (isset($_POST['submit'])) {
   }
   echo "</table>";
 }
+
 
 ?>
 
