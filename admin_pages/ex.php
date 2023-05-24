@@ -19,7 +19,6 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
         <p>BusX Bookings <br> || Miles of smiles! Always going your way! ||</p>
     </header>
     <br>
-
     
  <?php    
     $host = "localhost";
@@ -29,7 +28,7 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
     $usermail = $_SESSION['usermail'];
   
   $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-if (isset($_POST['submit'])) {
+
 
   //$pdo = new PDO("$host;$dbname, $username, $password);
 
@@ -53,7 +52,7 @@ if (isset($_POST['submit'])) {
       $data[] = $email_row;
       $rootanddate[] = $table_name;
     }
-  }
+  
 
   // Display the data in a table format
   echo "<table>";
