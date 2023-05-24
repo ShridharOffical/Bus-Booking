@@ -20,17 +20,8 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
     </header>
     <br>
 
-    <form action="" method="POST">
-        <label for="email">Enter your email:</label>&nbsp;
-        <input type="email" id="email" name="email" value="<?php echo $_SESSION['usermail']?>"required>
-        <br>
-        <input type="submit" name="submit" value="Run Script">
-    </form>
-    <?php
-
-  
     
-     
+ <?php    
     $host = "localhost";
     $username = "root";
     $password = "";

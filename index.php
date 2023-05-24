@@ -20,6 +20,7 @@
                     Like family we Care.</p>
                     <div class="bannerbtn">
                         <a href="#fd"><span></span>Book Now!</a>
+                        <a href="GetOtp.html"><span></span>Check Bookings</a>
                         <a href="#service"><span></span> More</a>
 
                     </div>
@@ -29,6 +30,7 @@
                 <nav>
                     <ul>
                         <li><a href="#banner">HOME</a></li>
+                        <li><a href="GetOtp.html">Check Bookings</a></li>
                         <li><a href="#feature">FEATURES</a></li>
                         <li><a href="#fd">FEATURED DESTINATIONS</a></li>
                         <li><a href="#service">SERVICES</a></li>
