@@ -74,7 +74,7 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
   echo "</table>";
   
   // Result text box
-  echo "<input type='text' id='result' placeholder='Check the checkboxes to display the values.' readonly>";
+  echo "<textarea id='result' placeholder='Check the checkboxes to Cancel Ticket *Note: Ticket Status Must be Active' readonly></textarea>";
   
   // JavaScript function to display selected data
 
@@ -86,15 +86,15 @@ if(!isset($_SERVER['HTTP_REFERER'])) {
 <script>
 function displaySelectedData() {
   var selectedCheckboxes = document.querySelectorAll('input[name="selectedRows[]"]:checked');
-    var resultTextBox = document.getElementById('result');
-    var output = '';
-    for (var i = 0; i < selectedCheckboxes.length; i++) {
-        var checkboxValue = selectedCheckboxes[i].value;
-        var seatNo = checkboxValue.substr('.$table_name_len.');
-        var route = selectedCheckboxes[i].parentNode.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText;
-       output += 'Seat No: ' + seatNo + ', Route: ' + route ;
-     }
-    resultTextBox.value = output;
+  var resultTextBox = document.getElementById('result');
+  var output = '';
+  for (var i = 0; i < selectedCheckboxes.length; i++) {
+    var checkboxValue = selectedCheckboxes[i].value;
+    var seatNo = checkboxValue.substr('.$table_name_len.');
+    var route = selectedCheckboxes[i].parentNode.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText;
+    output += 'Seat No: ' + seatNo + ', Route: ' + route + '\n';
+  }
+  resultTextBox.innerHTML = output;
 }
 </script>
 <?php  
@@ -113,11 +113,12 @@ session_abort(); // Calling the session abort function here, comment this if we 
   border-radius: 4px;
   font-size: 14px;
   color: #333;
-  width: 300px;
-  resize: vertical; /* Allow vertical resizing */
+  width: 400px;
+   /* Allow vertical resizing */
   overflow: auto; /* Add scrollbar when content exceeds height */
-  min-height: 50px; /* Set a minimum height for the text box */
+  min-height: 60px; /* Set a minimum height for the text box */
 }
+
 
 
   table {
