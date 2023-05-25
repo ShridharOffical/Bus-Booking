@@ -182,7 +182,7 @@ require '../db_scripts/view_count.php';
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="../admin_login.php"
+                            <a href="../admin_login.php" //& Add another script as bridge to start and stop the sessions
                                 class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Logout</a>
                         </div>
                     </div>
