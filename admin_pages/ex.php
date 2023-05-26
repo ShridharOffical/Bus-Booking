@@ -59,6 +59,7 @@ while ($table_row = $table_query->fetch()) {
     $i = 0;
     foreach ($data as $row) {
       $checkbox = $table_name . $row['Seat_no'];
+      $status[] = $row['Status'];
       echo "<tr>";
       echo "<td><input type='checkbox' name='selectedRows[]' value='$checkbox' onchange='displaySelectedData()'></td>";
       echo "<td>" . $row['Seat_no'] . "</td>";
@@ -67,6 +68,8 @@ while ($table_row = $table_query->fetch()) {
       echo "<td>" . $row['Date'] . "</td>";
       echo "<td>" . $row['Route'] . "</td>";
       echo "<td>" . $row['Status'] . "</td>";
+      echo "<input type='hidden' name='status[]' value='$status'>"; // Hidden input field for Status
+
       echo "</tr>";
       $i++;
     }
