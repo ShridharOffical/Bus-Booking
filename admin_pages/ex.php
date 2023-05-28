@@ -18,73 +18,61 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
 <br>
 
 <?php
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "learn";
+require "../db_scripts/login.php";
 $usermail = $_SESSION['usermail'];
 
-$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
 
 //$pdo = new PDO("$host;$dbname, $username, $password);
 
 // Use the query() method to retrieve a list of table names
-$table_query = $pdo->query("SHOW TABLES");
+$table_query = $conn->query("SHOW TABLES");
 
 // Initialize an empty array to store the data and the table names
 $data = array();
-$rootanddate = array();
-$tablePrinted = false;
+$checkbox = array();
+
 // Use the fetch() method to retrieve each table name
-while ($table_row = $table_query->fetch()) {
+while ($table_row = $table_query->fetch_array()) {
   // Retrieve the table name
   $table_name = $table_row[0];
+  echo $table_name;
+
   // Execute a query to search for matching emails in the current table
-  $email_query = $pdo->query("SELECT * FROM $table_name WHERE Email = '$usermail'");
+  $email_query = $conn->query("SELECT * FROM $table_name WHERE Email = '$usermail'");
 
   // Check if any matching emails were found
-  while ($email_row = $email_query->fetch()) {
+  while ($email_row = $email_query->fetch_array()) {
     // Add the row data to the data array
     $data[] = $email_row;
-    $rootanddate[] = $table_name;
-  }
-
-  if ($tablePrinted == false) { // To avoid printing the table more than once
-
-    // Display the data in a table format
-    echo "<form action='../db_scripts/getCancelSeats.php' method='post'>";
-    echo "<table>";
-    echo "<tr><th>Check</th><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
-    $i = 0;
-    foreach ($data as $row) {
-      $checkbox = $table_name . $row['Seat_no'];
-      $status[] = $row['Status'];
-      echo "<tr>";
-      echo "<td><input type='checkbox' name='selectedRows[]' value='$checkbox' onchange='displaySelectedData()'></td>";
-      echo "<td>" . $row['Seat_no'] . "</td>";
-      echo "<td>" . $row['Name'] . "</td>";
-      echo "<td>" . $row['Age'] . "</td>";
-      echo "<td>" . $row['Date'] . "</td>";
-      echo "<td>" . $row['Route'] . "</td>";
-      echo "<td>" . $row['Status'] . "</td>";
-      echo "<input type='hidden' name='status[]' value='$status'>"; // Hidden input field for Status
-
-      echo "</tr>";
-      $i++;
-    }
-    echo "</table>";
-
-    // Result text box
-    echo "<textarea id='result' placeholder='Check the checkboxes to Cancel Ticket *Note: Ticket Status Must be Active' readonly></textarea>";
-    echo "<input type='submit' value='Cancel'>";
-    echo "</form>";
-    // JavaScript function to display selected data
-    $tablePrinted = true;
+    $checkbox[] = $table_name;
   }
 }
 
+// Display the data in a table format
+echo "<form action='../db_scripts/getCancelSeats.php' method='post'>";
+echo "<table>";
+echo "<tr><th>Check</th><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
+foreach ($data as $index => $row) {
+  $checkboxValue = $checkbox[$index] . '-'. $row['Seat_no'];
+  echo "<tr>";
+  echo "<td><input type='checkbox' name='selectedRows[]' value='$checkboxValue' onchange='displaySelectedData()'></td>";
+  echo "<td>" . $row['Seat_no'] . "</td>";
+  // echo "<td>" . $checkbox[$index] . "</td>";
+  echo "<td>" . $row['Name'] . "</td>";
+  echo "<td>" . $row['Age'] . "</td>";
+  echo "<td>" . $row['Date'] . "</td>";
+  echo "<td>" . $row['Route'] . "</td>";
+  echo "<td>" . $row['Status'] . "</td>";
+  echo "</tr>";
+}
+echo "</table>";
+echo "<textarea id='result' placeholder='Check the checkboxes to Cancel Ticket *Note: Ticket Status Must be Active' readonly></textarea>";
+echo "<input type='submit' value='Cancel'>";
+echo "</form>";
+
 ?>
+
 <script>
   function displaySelectedData() {
     var selectedCheckboxes = document.querySelectorAll('input[name="selectedRows[]"]:checked');
@@ -92,13 +80,19 @@ while ($table_row = $table_query->fetch()) {
     var output = '';
     for (var i = 0; i < selectedCheckboxes.length; i++) {
       var checkboxValue = selectedCheckboxes[i].value;
-      var seatNo = checkboxValue.substr('.$table_name_len.');
+      console.log(checkboxValue);
+      
+      var tableAndSeatNo = checkboxValue.split('-');
+      var table_name = tableAndSeatNo[0];
+      var seatNo = tableAndSeatNo[1];
+      
       var route = selectedCheckboxes[i].parentNode.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerText;
-      output += 'Seat No: ' + seatNo + ', Route: ' + route + '\n';
+      output += 'Table Name: ' + table_name + ', Seat No: ' + seatNo + ', Route: ' + route + '\n';
     }
     resultTextBox.innerHTML = output;
   }
 </script>
+
 <?php
 session_abort(); // Calling the session abort function here, comment this if we want to save the aray data for further use.
 ?>
