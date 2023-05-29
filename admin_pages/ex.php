@@ -29,7 +29,8 @@ $usermail = $_SESSION['usermail'];
 $table_query = $conn->query("SHOW TABLES");
 
 // Initialize an empty array to store the data and the table names
-$data = array();
+$dataActive = array();
+$dataInactive = array();
 $checkbox = array();
 
 // Use the fetch() method to retrieve each table name
@@ -43,17 +44,22 @@ while ($table_row = $table_query->fetch_array()) {
 
   // Check if any matching emails were found
   while ($email_row = $email_query->fetch_array()) {
-    // Add the row data to the data array
-    $data[] = $email_row;
+    // Add the row data to the data array according to the status of that ticket
+    if ($email_row['Status'] == 'Active') {
+      $dataActive[] = $email_row;
+    }
+    else if ($email_row['Status'] == 'Cancelled') {
+      $dataInactive[] = $email_row;
+    }
     $checkbox[] = $table_name;
   }
 }
 
-// Display the data in a table format
+// Display the data in a table format for active status
 echo "<form action='../db_scripts/getCancelSeats.php' method='post'>";
 echo "<table>";
 echo "<tr><th>Check</th><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
-foreach ($data as $index => $row) {
+foreach ($dataActive as $index => $row) {
   $checkboxValue = $checkbox[$index] . '-'. $row['Seat_no'];
   echo "<tr>";
   echo "<td><input type='checkbox' name='selectedRows[]' value='$checkboxValue' onchange='displaySelectedData()'></td>";
@@ -71,6 +77,21 @@ echo "<textarea id='result' placeholder='Check the checkboxes to Cancel Ticket *
 echo "<input type='submit' value='Cancel'>";
 echo "</form>";
 
+
+echo "<br><br> Inactive or Cancled tickets on this email<br><br>";
+echo "<table>";
+echo "<tr><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
+foreach ($dataInactive as $index => $row) {
+  echo "<td>" . $row['Seat_no'] . "</td>";
+  // echo "<td>" . $checkbox[$index] . "</td>";
+  echo "<td>" . $row['Name'] . "</td>";
+  echo "<td>" . $row['Age'] . "</td>";
+  echo "<td>" . $row['Date'] . "</td>";
+  echo "<td>" . $row['Route'] . "</td>";
+  echo "<td>" . $row['Status'] . "</td>";
+  echo "</tr>";
+}
+echo "</table>";
 ?>
 
 <script>

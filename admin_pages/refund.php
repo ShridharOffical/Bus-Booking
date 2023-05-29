@@ -1,5 +1,19 @@
+<?php
+ // This block of code will stop the users from opening this page directly!
+if (!isset($_SESSION['refundstatus'])) {
+  function Redirect($url, $permanent = false) // move this function to a seprate file
+  { //Redirects to given page
+    header('Location: ' . $url, true, $permanent ? 301 : 302);
+    exit();
+  }
+
+  Redirect("../index.php",true);
+  session_abort();
+}
+?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <style>
     body {
@@ -62,6 +76,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h2>Cancel Ticket Refund Process </h2>
@@ -78,8 +93,10 @@
       <input type="submit" class="submit-btn" value="Cancel">
     </form>
     <div class="message">
-      <p>If refund was not added in your account, please contact us on WhatsApp <a href="https://wa.me/918208147136">+918208147136</a>.</p>
+      <p>If refund was not added in your account, please contact us on WhatsApp <a
+          href="https://wa.me/918208147136">+918208147136</a>.</p>
     </div>
   </div>
 </body>
+
 </html>

@@ -1,23 +1,30 @@
 <?php
 require "../db_scripts/login.php";
-
+session_start();
+$_SESSION['refundstatus'] = true;
 $GetSeatArray = $_POST['selectedRows'];
+$currentTable = null;
+$seatcounter = 0; // increments when we deactivate a seat
 for ($i = 0; $i < sizeof($GetSeatArray); $i++) {
 
-
     $currentTableDate = $GetSeatArray[$i];
-    // echo $currentTableDate ,"\n";
+
     //Below we seprate the table name and seat no to be deleted
+
     $currentTable = substr($currentTableDate, 0, 12);
-    echo $currentTable ,"\n";
     //$currentTable = substr($currentTableDate,0,strlen($currentTableDate)-2);
     $currentSeat = substr($currentTableDate, 13);
-    // echo $currentSeat ,"\n";
-    $query = "UPDATE $currentTable SET Status='Cancelled', IsTaken=0 WHERE Seat_no='$currentSeat'";
+   
 
-    // $query = "update $currentTable SET IsTaken=0,status='cancelled'  where Seat_no=$currentSeat";
-    mysqli_query($conn, $query);
+    //Removing the seats by setting the isTaken value to 0
+    $query = "UPDATE $currentTable SET Status='Cancelled', IsTaken=0 WHERE Seat_no='$currentSeat'";
+        
+    if(mysqli_query($conn, $query)){
+        $seatcounter++;
+    }
 }
+    //Here we will extract the information we need for the refundrecord table
+    // $query = "insert into refundedrecords column(Name,Email,amount,tablename,seat_no) values()"; 
     ?>
     <script>
         alert("Your Seats Has been Cancelled");
