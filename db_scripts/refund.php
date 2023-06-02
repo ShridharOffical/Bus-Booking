@@ -1,5 +1,6 @@
 <?php
- //This block of code will stop the users from opening this page directly
+ //This block of code will stop the users from opening this page directly!
+
 ?>
 <!DOCTYPE html>
 <html>

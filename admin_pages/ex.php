@@ -38,23 +38,29 @@ $checkbox = array();
 while ($table_row = $table_query->fetch_array()) {
   // Retrieve the table name
   $table_name = $table_row[0];
- 
 
   // Execute a query to search for matching emails in the current table
   $email_query = $conn->query("SELECT * FROM $table_name WHERE Email = '$usermail'");
 
   // Check if any matching emails were found
   while ($email_row = $email_query->fetch_array()) {
+    // Retrieve the status value from the row
+    $status = $email_row['Status'];
+
     // Add the row data to the data array according to the status of that ticket
-    if ($email_row['Status'] == 'Active') {
+    if ($status == 'Active') {
       $dataActive[] = $email_row;
+      $checkbox[] = $table_name;
     }
-    else if ($email_row['Status'] == 'Cancelled') {
+    else if ($status == 'Cancelled') {
       $dataInactive[] = $email_row;
     }
-    $checkbox[] = $table_name;
+    
   }
 }
+
+// Rest of the code remains unchanged
+
 
 // Display the data in a table format for active status
 echo "<form action='../db_scripts/getCancelSeats.php' method='post'>";
@@ -62,10 +68,11 @@ echo "<table>";
 echo "<tr><th>Check</th><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
 foreach ($dataActive as $index => $row) {
   $checkboxValue = $checkbox[$index] . '-'. $row['Seat_no'];
+  
   echo "<tr>";
   echo "<td><input type='checkbox' name='selectedRows[]' value='$checkboxValue' onchange='displaySelectedData()'></td>";
   echo "<td>" . $row['Seat_no'] . "</td>";
-  // echo "<td>" . $checkbox[$index] . "</td>";
+  echo "<td>" . $checkbox[$index] . "</td>";
   echo "<td>" . $row['Name'] . "</td>";
   echo "<td>" . $row['Age'] . "</td>";
   echo "<td>" . $row['Date'] . "</td>";
@@ -114,6 +121,7 @@ echo "</table>";
     }
     resultTextBox.innerHTML = output;
   }
+  
   function redirectToIndex() {
   window.location.href = '../index.php';
 }
