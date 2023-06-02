@@ -28,7 +28,7 @@ for ($i = 0; $i < sizeof($GetSeatArray); $i++) {
     ?>
     <script>
         alert("Your Seats Has been Cancelled");
-    window.location.href ="../admin_pages/refund.php";
+        window.location.href ="../admin_pages/refund.php";
     </script>
     <?php
     

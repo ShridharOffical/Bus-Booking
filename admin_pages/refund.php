@@ -1,15 +1,15 @@
 <?php
  // This block of code will stop the users from opening this page directly!
-if (!isset($_SESSION['refundstatus'])) {
-  function Redirect($url, $permanent = false) // move this function to a seprate file
-  { //Redirects to given page
-    header('Location: ' . $url, true, $permanent ? 301 : 302);
-    exit();
-  }
+// if (!isset($_SESSION['refundstatus'])) {
+//   function Redirect($url, $permanent = false) // move this function to a seprate file
+//   { //Redirects to given page
+//     header('Location: ' . $url, true, $permanent ? 301 : 302);
+//     exit();
+//   }
 
-  Redirect("../index.php",true);
-  session_abort();
-}
+//   Redirect("../index.php",true);
+//   session_abort();
+// }
 ?>
 <!DOCTYPE html>
 <html>

@@ -16,6 +16,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
   <p>BusX Bookings <br> || Miles of smiles! Always going your way! ||</p>
 </header>
 <br>
+<button class="my-button" onclick="redirectToIndex()">Back to Homepage</button>
 
 <?php
 require "../db_scripts/login.php";
@@ -37,7 +38,7 @@ $checkbox = array();
 while ($table_row = $table_query->fetch_array()) {
   // Retrieve the table name
   $table_name = $table_row[0];
-  echo $table_name;
+ 
 
   // Execute a query to search for matching emails in the current table
   $email_query = $conn->query("SELECT * FROM $table_name WHERE Email = '$usermail'");
@@ -73,12 +74,13 @@ foreach ($dataActive as $index => $row) {
   echo "</tr>";
 }
 echo "</table>";
+echo "<br>";
 echo "<textarea id='result' placeholder='Check the checkboxes to Cancel Ticket *Note: Ticket Status Must be Active' readonly></textarea>";
-echo "<input type='submit' value='Cancel'>";
+echo "&nbsp;&nbsp;&nbsp;<input type='submit' value='Cancel'>";
 echo "</form>";
 
 
-echo "<br><br> Inactive or Cancled tickets on this email<br><br>";
+;echo "<br><br> Inactive or Cancled tickets on this email<br><br>";
 echo "<table>";
 echo "<tr><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
 foreach ($dataInactive as $index => $row) {
@@ -112,6 +114,10 @@ echo "</table>";
     }
     resultTextBox.innerHTML = output;
   }
+  function redirectToIndex() {
+  window.location.href = '../index.php';
+}
+
 </script>
 
 <?php
@@ -122,6 +128,46 @@ session_abort(); // Calling the session abort function here, comment this if we 
 
 
 <style>
+  .my-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rebeccapurple;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.my-button:hover {
+  background-color:red;
+}
+
+  
+  header {
+  background-color: yellow;
+  padding: 20px;
+  text-align: center;
+}
+
+header p {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+header p::after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid #333;
+  margin: 0 auto;
+  width: 80px;
+  margin-top: 10px;
+}
+
+
   #result {
     display: inline-block;
     padding: 5px 10px;
