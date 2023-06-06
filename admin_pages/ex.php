@@ -59,6 +59,9 @@ while ($table_row = $table_query->fetch_array()) {
   }
 }
 
+
+
+
 // Rest of the code remains unchanged
 
 
@@ -66,28 +69,34 @@ while ($table_row = $table_query->fetch_array()) {
 echo "<form action='../db_scripts/getCancelSeats.php' method='post'>";
 echo "<table>";
 echo "<tr><th>Check</th><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
-foreach ($dataActive as $index => $row) {
-  $checkboxValue = $checkbox[$index] . '-'. $row['Seat_no'];
-  
-  echo "<tr>";
-  echo "<td><input type='checkbox' name='selectedRows[]' value='$checkboxValue' onchange='displaySelectedData()'></td>";
-  echo "<td>" . $row['Seat_no'] . "</td>";
-  echo "<td>" . $checkbox[$index] . "</td>";
-  echo "<td>" . $row['Name'] . "</td>";
-  echo "<td>" . $row['Age'] . "</td>";
-  echo "<td>" . $row['Date'] . "</td>";
-  echo "<td>" . $row['Route'] . "</td>";
-  echo "<td>" . $row['Status'] . "</td>";
-  echo "</tr>";
+if(empty($dataActive)){
+  echo "<td>" . "Active Records Not Found ". "</td>";
+
 }
+else{
+  foreach ($dataActive as $index => $row) {
+  
+    $checkboxValue = $checkbox[$index] . '-'. $row['Seat_no'];
+    
+    echo "<tr>";
+    echo "<td><input type='checkbox' name='selectedRows[]' value='$checkboxValue' onchange='displaySelectedData()'></td>";
+    echo "<td>" . $row['Seat_no'] . "</td>";
+    echo "<td>" . $checkbox[$index] . "</td>";
+    echo "<td>" . $row['Name'] . "</td>";
+    echo "<td>" . $row['Age'] . "</td>";
+    echo "<td>" . $row['Date'] . "</td>";
+    echo "<td>" . $row['Route'] . "</td>";
+    echo "<td>" . $row['Status'] . "</td>";
+    echo "</tr>";
+  }
+}
+
 echo "</table>";
 echo "<br>";
 echo "<textarea id='result' placeholder='Check the checkboxes to Cancel Ticket *Note: Ticket Status Must be Active' readonly></textarea>";
 echo "&nbsp;&nbsp;&nbsp;<input type='submit' value='Cancel'>";
 echo "</form>";
-
-
-;echo "<br><br> Inactive or Cancled tickets on this email<br><br>";
+echo "<br><br> Inactive or Cancled tickets on this email<br><br>";
 echo "<table>";
 echo "<tr><th>Seat_no</th><th>Name</th><th>Age</th><th>Date</th><th>Route</th><th>Status</th></tr>";
 foreach ($dataInactive as $index => $row) {
