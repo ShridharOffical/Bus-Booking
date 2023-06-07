@@ -1,6 +1,9 @@
 <?php
  //This block of code will stop the users from opening this page directly!
-
+ if ($_SERVER['HTTP_REFERER'] !== 'ex.php') {
+  header('Location: ex.php');
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,5 +92,11 @@
     </div>
   </div>
 </body>
-
+<script>
+    // Disable browser's back button
+    window.history.pushState(null, '', location.href);
+    window.addEventListener('popstate', function () {
+        window.history.pushState(null, '', location.href);
+    });
+</script>
 </html>

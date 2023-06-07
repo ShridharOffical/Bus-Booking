@@ -160,6 +160,13 @@ require '../db_scripts/view_count.php';
                                 <span class="hide-menu">Change Password</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../db_scripts/AutorunStatusExpiredScript.php" aria-expanded="false">
+        <i class="bi bi-ticket-detailed"></i>
+        <span class="hide-menu" style="color: red;">Make Ticket Expire </span>
+    </a>
+</li>
+
                     </ul>
 
                 </nav>
@@ -284,11 +291,10 @@ require '../db_scripts/view_count.php';
                                             require "../db_scripts/login.php";
 
                                             $k = $_GET['route'] . $_GET['day'];
+                                            $root=$_GET['route'];
 
                                             $table_name = str_replace('-', '', $k);
-                                            echo " Root  and Date :-  ", $_GET['route'];
-                                            
-                                            echo " Total Eanrnings of the day :- ";
+                                           
                                             
                                             // Execute the SQL query and fetch the result  
                                             if ($sql = $conn->query("SELECT * from $table_name WHERE Age>0")) {
@@ -330,9 +336,34 @@ require '../db_scripts/view_count.php';
                                                 // Fetch the result
                                                 $row = mysqli_fetch_assoc($result);
                                                 $count = $row['count'];
-        
+                                                
                                                 // Output the count
-                                                echo "      || Total Seats Booked : " , $count - 1;
+                                                $root_name = substr($table_name, 0, 4);
+                                                $year = substr($table_name, 4, 4);
+                                                $month = substr($table_name, 8, 2);
+                                                $day = substr($table_name, 10, 2);
+                                                $formatted_date = $year . "-" . $month . "-" . $day;
+                                                
+                                                
+
+                                                echo " ||  Date : " . $formatted_date . " || <br>";
+                                                
+                                                
+                                                if (substr($table_name, 0, 4) === "ktom") {
+                                                    echo " || Root : Kolhapur To Mumbai  || <br>";
+                                                } elseif (substr($table_name, 0, 4) === "mtok") {
+                                                    echo "Root : Mumbai To Kolhapur  || <br>";
+                                                } elseif (substr($table_name, 0, 4) === "ktod") {
+                                                    echo " || Root : Kolhapur To Delhi  || <br>";
+                                                } elseif (substr($table_name, 0, 4) === "dtok") {
+                                                    echo " || Root : Delhi To Kolhapur  || <br>";
+                                                } elseif (substr($table_name, 0, 4) === "ktob") {
+                                                    echo " || Root : Kolhapur To Bengaluru  || <br>";
+                                                } elseif (substr($table_name, 0, 4) === "btok") {
+                                                    echo " || Root : Bengaluru To Kolhapur  || <br>";
+                                                } 
+                                               
+                                                echo "      || Total Seats Booked : " , $count - 1," || <br>";
         
                                                 // Close the database connection
                                                 mysqli_close($conn);
