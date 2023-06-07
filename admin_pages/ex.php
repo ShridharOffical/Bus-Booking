@@ -81,7 +81,6 @@ else{
     echo "<tr>";
     echo "<td><input type='checkbox' name='selectedRows[]' value='$checkboxValue' onchange='displaySelectedData()'></td>";
     echo "<td>" . $row['Seat_no'] . "</td>";
-    echo "<td>" . $checkbox[$index] . "</td>";
     echo "<td>" . $row['Name'] . "</td>";
     echo "<td>" . $row['Age'] . "</td>";
     echo "<td>" . $row['Date'] . "</td>";
