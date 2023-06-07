@@ -166,6 +166,12 @@ require '../db_scripts/view_count.php';
         <span class="hide-menu" style="color: red;">Make Ticket Expire </span>
     </a>
 </li>
+<li class="sidebar-item">
+    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../db_scripts/refund_table.php" aria-expanded="false">
+        <i class="bi bi-ticket-detailed"></i>
+        <span class="hide-menu" style="color: red;"> Refund_Users </span>
+    </a>
+</li>
 
                     </ul>
 
