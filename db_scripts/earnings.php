@@ -1,46 +1,46 @@
+<?php
 
-<?php 
+require_once 'login.php';
 
-require 'login.php';
+// Take another connection to the db is required as two tables exist in different databases.
+
+$hn = "localhost";
+$un = "root";
+$pw = "";
+$db = "login";
+
+$conn2 = new mysqli($hn, $un, $pw, $db); // connects to the db table
 
 $tables = mysqli_query($conn, "SHOW TABLES");
-
 $total_earnings = 0; //^ will store the total earnings
-
-//* Custom function to find a character in a stream_set_blocking
-function isPresent($str,$ch)
-{
-    for($i=0;$i< strlen($str);$i++)
-    {
-        if($str[$i]==$ch)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-
+$total_seats = 0;
+$routefetch = $conn2->query("select * from fares");
 
 while ($table = mysqli_fetch_object($tables)) {
+
     $table_name = $table->{"Tables_in_learn"};
 
     $results = mysqli_query($conn, "SELECT * FROM `$table_name` WHERE IsTaken=1");
 
-    if(isPresent($table_name,'b')){
-        $temp = mysqli_num_rows($results) * 750;
-        $total_earnings+=$temp;
+    if ($results) {
+        while ($routeTable = mysqli_fetch_row($routefetch)) {
+            $Route = substr($table_name, 0, strlen($table_name) - 8); //Removes the date from the table name
+            $currentRoute = strtolower($routeTable[0]);
+
+
+            if ($Route == $currentRoute)
+            {
+                $temp = mysqli_num_rows($results) * $routeTable[1];
+                $total_seats+=mysqli_num_rows($results);
+                $total_earnings += $temp;
+                break;
+            }
+
+    
+        }
+    
     }
-    elseif(isPresent($table_name,'m'))
-    {
-        $temp = mysqli_num_rows($results) * 450;
-        $total_earnings+=$temp;
-    }
-    else
-    {
-        $temp = mysqli_num_rows($results) * 2200;
-        $total_earnings+=$temp;
-    }
+    
 }
+
 ?>

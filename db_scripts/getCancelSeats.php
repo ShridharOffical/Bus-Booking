@@ -1,10 +1,12 @@
 <?php
 require "../db_scripts/login.php";
 session_start();
+
 $_SESSION['refundstatus'] = true;
 $GetSeatArray = $_POST['selectedRows'];
 $currentTable = null;
 $seatcounter = 0; // increments when we deactivate a seat
+
 for ($i = 0; $i < sizeof($GetSeatArray); $i++) {
     
     $currentTableDate = $GetSeatArray[$i];

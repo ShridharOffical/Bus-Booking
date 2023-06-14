@@ -14,7 +14,6 @@ while ($rows = mysqli_fetch_array($T)) {
     $total_views += $rows['count'];
 }
 
-
 ?>
 
 

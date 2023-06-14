@@ -1,6 +1,6 @@
 <?php
       require_once 'db_scripts/fetch_seats.php';
-      
+      require_once "db_scripts/admindb.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +96,6 @@
         <script type='text/javascript'> 
           var arr = <?php echo json_encode($data);?>;
           window.glob = "arr"; 
-          // console.log(typeof(arr));
           // </script>
         <script src="seatBook.js"></script>
         

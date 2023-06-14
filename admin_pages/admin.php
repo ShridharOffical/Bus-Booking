@@ -1,64 +1,14 @@
 <?php
-require '../db_scripts/login.php';
+
+require '../db_scripts/view_count.php';
+require '../db_scripts/earnings.php';
+
 session_start();
-
-//* Custom function to find a character in a stream_set_blocking
-function isPresent($str, $ch)
-{
-    for ($i = 0; $i < strlen($str); $i++) {
-        if ($str[$i] == $ch) {
-            return true;
-        }
-    }
-
-    return false;
-}
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     header("location: ../admin_login.php");
     exit;
 }
-
-// ^Total Seats code below
-
-$tables = mysqli_query($conn, "SHOW TABLES");
-
-$total_seats = 0; //^ will store all the booked seats from the database
-$total_earnings = 0; //^ will store the total earnings
-
-while ($table = mysqli_fetch_object($tables)) {
-    $table_name = $table->{"Tables_in_learn"};
-
-    $results = mysqli_query($conn, "SELECT * FROM `$table_name` WHERE IsTaken=1");
-
-    $total_seats += mysqli_num_rows($results);
-
-    if (isPresent($table_name, 'b')) {
-        $temp = mysqli_num_rows($results) * 750;
-        $total_earnings += $temp;
-        // echo $table_name ." ". mysqli_num_rows($results)." ";
-    } elseif (isPresent($table_name, 'd')) {
-        $temp = mysqli_num_rows($results) * 2200;
-        $total_earnings += $temp;
-        // echo $table_name . " " .mysqli_num_rows($results)." ";
-
-    } else {
-        $temp = mysqli_num_rows($results) * 450;
-        $total_earnings += $temp;
-        // echo $table_name . " " .mysqli_num_rows($results)." ";
-
-    }
-}
-
-//^End of total seats and Earnings code
-
-
-require '../db_scripts/view_count.php';
-// require '../db_scripts/earnings.php';
-
-
-
-// $outcome;
 
 ?>
 
@@ -161,17 +111,19 @@ require '../db_scripts/view_count.php';
                             </a>
                         </li>
                         <li class="sidebar-item">
-    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../db_scripts/AutorunStatusExpiredScript.php" aria-expanded="false">
-        <i class="bi bi-ticket-detailed"></i>
-        <span class="hide-menu" style="color: red;">Make Ticket Expire </span>
-    </a>
-</li>
-<li class="sidebar-item">
-    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../db_scripts/refund_table.php" aria-expanded="false">
-        <i class="bi bi-ticket-detailed"></i>
-        <span class="hide-menu" style="color: red;"> Refund_Users </span>
-    </a>
-</li>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="../db_scripts/AutorunStatusExpiredScript.php" aria-expanded="false">
+                                <i class="bi bi-ticket-detailed"></i>
+                                <span class="hide-menu" style="color: red;">Make Ticket Expire </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="../db_scripts/refund_table.php" aria-expanded="false">
+                                <i class="bi bi-ticket-detailed"></i>
+                                <span class="hide-menu" style="color: red;"> Refund_Users </span>
+                            </a>
+                        </li>
 
                     </ul>
 
@@ -265,13 +217,19 @@ require '../db_scripts/view_count.php';
                                         value="">
                                     <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
                                         <select name="route" id="locations"
-                                            class="form-select shadow-none row border-top">
-                                            <option value="ktom">Kolhapur->Mumbai</option>
-                                            <option value="mtok">Mumbai->kolhapur</option>
-                                            <option value="ktod">Kolhapur->Delhi</option>
-                                            <option value="dtok">Delhi->Kolhapur</option>
-                                            <option value="ktob">Kolhapur->Bangalore</option>
-                                            <option value="btok">Bangalore->Kolhapur</option>
+                                        class="form-select shadow-none row border-top">
+                                            <option value=""> Choose route here</option>                                             
+                                            <?php
+                                            require_once "../db_scripts/admindb.php";
+                                            $query = "select * from fares"; //fetching the available routes from the db
+                                            $result = mysqli_query($conn, $query);
+                                            
+                                            $route = $result->fetch_all();
+                                             foreach ($route as $key => $value) {
+                                            ?>   
+                                                <option value="<?php echo $value[0]; ?>"><?php echo $value[0]; ?></option>
+                                                <?php
+                                            } ?>
                                         </select>
                                     </div>
                                     <button type="submit" id="selectedDat"
@@ -297,11 +255,11 @@ require '../db_scripts/view_count.php';
                                             require "../db_scripts/login.php";
 
                                             $k = $_GET['route'] . $_GET['day'];
-                                            $root=$_GET['route'];
+                                            $root = $_GET['route'];
 
                                             $table_name = str_replace('-', '', $k);
-                                           
-                                            
+
+
                                             // Execute the SQL query and fetch the result  
                                             if ($sql = $conn->query("SELECT * from $table_name WHERE Age>0")) {
 
@@ -325,7 +283,7 @@ require '../db_scripts/view_count.php';
                                                             <?php echo $rows['Status']; ?>
                                                         </td>
                                                     </tr>
-                                                    
+
                                                     <?php
 
                                                 }
@@ -338,23 +296,23 @@ require '../db_scripts/view_count.php';
                                                 // Execute the SQL query to count the number of times the value of 1 appears in the column of your choice
                                                 $sql = "SELECT COUNT(*) as count FROM $table_name WHERE IsTaken = 1";
                                                 $result = mysqli_query($conn, $sql);
-        
+
                                                 // Fetch the result
                                                 $row = mysqli_fetch_assoc($result);
                                                 $count = $row['count'];
-                                                
+
                                                 // Output the count
                                                 $root_name = substr($table_name, 0, 4);
                                                 $year = substr($table_name, 4, 4);
                                                 $month = substr($table_name, 8, 2);
                                                 $day = substr($table_name, 10, 2);
                                                 $formatted_date = $year . "-" . $month . "-" . $day;
-                                                
-                                                
+
+
 
                                                 echo " ||  Date : " . $formatted_date . " || <br>";
-                                                
-                                                
+
+
                                                 if (substr($table_name, 0, 4) === "ktom") {
                                                     echo " || Root : Kolhapur To Mumbai  || <br>";
                                                 } elseif (substr($table_name, 0, 4) === "mtok") {
@@ -367,10 +325,10 @@ require '../db_scripts/view_count.php';
                                                     echo " || Root : Kolhapur To Bengaluru  || <br>";
                                                 } elseif (substr($table_name, 0, 4) === "btok") {
                                                     echo " || Root : Bengaluru To Kolhapur  || <br>";
-                                                } 
-                                               
-                                                echo "      || Total Seats Booked : " , $count - 1," || <br>";
-        
+                                                }
+
+                                                echo "      || Total Seats Booked : ", $count - 1, " || <br>";
+
                                                 // Close the database connection
                                                 mysqli_close($conn);
 

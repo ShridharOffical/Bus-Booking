@@ -1,6 +1,8 @@
 <?php
   require_once 'db_scripts/Send_form_data.php';
   require_once 'db_scripts/send_seats.php';
+
+  
 ?>
 
 <!DOCTYPE html>

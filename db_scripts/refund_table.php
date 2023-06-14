@@ -47,18 +47,8 @@
     <?php
     // Assuming you have a refund_data table in your database with columns order_id, refund_amount, and refund_reason
     // Replace the database credentials with your own
-    $hn = "localhost";
-    $un = "root";
-    $pw = "";
-    $db = "login";
-
-    $conn = new mysqli($hn,$un,$pw,$db);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Fetch refund data from the refund_data table
+    require_once "admindb.php";
+    
     $sql = "SELECT UPI_ID, Cancell_Reason FROM refund";
     $result = $conn->query($sql);
 
