@@ -262,7 +262,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
 
                                             // Execute the SQL query and fetch the result  
                                             if ($sql = $conn->query("SELECT * from $table_name WHERE Age>0")) {
-
+                                                
                                                 while ($rows = mysqli_fetch_array($sql)) {
                                                     ?>
 
@@ -287,47 +287,50 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                                     <?php
 
                                                 }
+                                                
+                                                $sql2 = "SELECT COUNT(*) AS seatCount FROM $table_name WHERE IsTaken=1";
+                                                $result = mysqli_query($conn, $sql2);
+                                                if ($result) {
+                                                    // Fetch the result
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $seatCount = $row['seatCount'];
+                                            
+                                                    // Print the count of booked seats
+                                                    echo "Number of Booked Seats: " . $seatCount ." <br>";
+                                                } else {
+                                                    echo "Query error: " . mysqli_error($conn);
+                                                }
+                                                if (isset($_GET['route']) && isset($_GET['day'])) {
+                                                    $selectedRoute = $_GET['route'];
+                                                    $selectedDate = $_GET['day'];
+                                                
+                                                    $formattedDate = date("d-m-Y", strtotime($selectedDate));
+                                                  
+                                                    echo " Date: $formattedDate <br>";
+                                                    echo " Route: $selectedRoute";
+                                                }
                                                 $hn = "localhost";
                                                 $un = "root";
                                                 $pw = "";
-                                                $db = "learn";
+                                                $db = "login";
                                                 // Connect to the database
-                                                $conn = mysqli_connect($hn, $un, $pw, $db);
-                                                // Execute the SQL query to count the number of times the value of 1 appears in the column of your choice
-                                                $sql = "SELECT COUNT(*) as count FROM $table_name WHERE IsTaken = 1";
-                                                $result = mysqli_query($conn, $sql);
-
-                                                // Fetch the result
-                                                $row = mysqli_fetch_assoc($result);
-                                                $count = $row['count'];
-
-                                                // Output the count
-                                                $root_name = substr($table_name, 0, 4);
-                                                $year = substr($table_name, 4, 4);
-                                                $month = substr($table_name, 8, 2);
-                                                $day = substr($table_name, 10, 2);
-                                                $formatted_date = $year . "-" . $month . "-" . $day;
-
-
-
-                                                echo " ||  Date : " . $formatted_date . " || <br>";
-
-
-                                                if (substr($table_name, 0, 4) === "ktom") {
-                                                    echo " || Root : Kolhapur To Mumbai  || <br>";
-                                                } elseif (substr($table_name, 0, 4) === "mtok") {
-                                                    echo "Root : Mumbai To Kolhapur  || <br>";
-                                                } elseif (substr($table_name, 0, 4) === "ktod") {
-                                                    echo " || Root : Kolhapur To Delhi  || <br>";
-                                                } elseif (substr($table_name, 0, 4) === "dtok") {
-                                                    echo " || Root : Delhi To Kolhapur  || <br>";
-                                                } elseif (substr($table_name, 0, 4) === "ktob") {
-                                                    echo " || Root : Kolhapur To Bengaluru  || <br>";
-                                                } elseif (substr($table_name, 0, 4) === "btok") {
-                                                    echo " || Root : Bengaluru To Kolhapur  || <br>";
+                                                $conn2 = mysqli_connect($hn, $un, $pw, $db);
+                                                $faresQuery = "SELECT Amount FROM fares WHERE Route = '$selectedRoute'";
+                                                $faresResult = mysqli_query($conn2, $faresQuery);
+                                                if ($faresResult) {
+                                                    $faresRow = mysqli_fetch_assoc($faresResult);
+                                                    $amount = $faresRow['Amount'];
+                                                    // Calculate the total amount
+                                                    $totalAmount = $amount * $seatCount;
+                                                    // Print the total amount
+                                                    echo "<br>Total Earning Amount : -  " . $totalAmount;
+                                                } else {
+                                                    echo "Fares query error: " . mysqli_error($conn);
                                                 }
-
-                                                echo "      || Total Seats Booked : ", $count - 1, " || <br>";
+                                            } else {
+                                                echo "Seats query error: " . mysqli_error($conn);
+                                            }    
+                                                
 
                                                 // Close the database connection
                                                 mysqli_close($conn);
@@ -335,8 +338,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
 
                                             }
 
-
-                                        }
+                                        
+                                      
 
                                         //catch exception
                                         catch (Exception $e) {
