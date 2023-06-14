@@ -102,9 +102,7 @@
                                  <a href="Form.php">
                                 <img src="img/Gateway-of-India-1-ImResizer-ImResizer.jpg" alt="">
                                  </a>
-                                <div class="Price">
-                                    <p>450₹</p>
-                                </div>
+                                
                                 <div class="Rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -131,9 +129,6 @@
                                 <a href="Form.php">
                                 <img src="img/banglore.jpg" alt="">
                                 </a>
-                                <div class="Price">
-                                    <p>750₹</p>
-                                </div>
                                 <div class="Rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -161,9 +156,6 @@
                                 <a href="Form.php">
                                 <img src="img/Lotus-Tmple-Photo-by-Arpan-Das-980x614-ImResizer-ImResizer.jpg" alt="">
                                 </a>
-                                <div class="Price">
-                                    <p>2200₹</p>
-                                </div>
                                 <div class="Rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
