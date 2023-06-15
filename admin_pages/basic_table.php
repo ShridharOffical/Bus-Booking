@@ -196,47 +196,45 @@
                                         // echo var_dump($all_tables);
                                         while ($table_name = mysqli_fetch_array($all_tables)) {
                                             // * Removing Date and Route from the table name
-                                            $Date = substr($table_name[0], 4);
-                                            $Rute = substr($table_name[0], 0, 4);
+                                        
 
-                                            $Date = strtotime($Date); //^ Formating the date string into date format, duhh
+                                            
                                         
                                             //^ Later Chamge the actual values of the table names and the forms too so we dont have to do this
-                                            $Long_Rutes = ["ktob", "Kolhapur-to-Banglore", "btok", "Banglore-to-Kolhapur", "mtok", "Mumbai-to-Kolhapur", "ktom", "Kolhapur-to-Mumbai", "dtok", "Delhi-to-Kolhapur", "ktod", "Kolhapur-to-Delhi"];
+                                           
 
-                                            for ($i = 0; $i < count($Long_Rutes); $i += 2) { //^ Checking in the array for full forms
-                                        
-                                                if ($Rute == $Long_Rutes[$i]) {
-                                                    $Rute = $Long_Rutes[$i + 1];
-                                                    break;
-                                                }
-                                            }
+                                            if ($sql = $conn->query("SELECT *
+                        FROM $table_name[0]
+                        WHERE name LIKE '$k%'")) {
+    while ($rows = mysqli_fetch_array($sql)) {
+        ?>
+        <tr>
+            <td>
+                <?php echo $rows['Name']; ?>
+            </td>
+            <td>
+                <?php echo $rows['Email']; ?>
+            </td>
+            <td>
+                <?php echo $rows['Age']; ?>
+            </td>
+            <td>
+                <?php echo $rows['Route'] ?>
+            </td>
+            <td>
+                <?php echo date('d-m-y', strtotime($rows['Date'])); ?>
+            </td>
+        </tr>
+        <?php
+    }
+} else {
+    ?>
+    <td colspan="4">The Entered Name Does Not Exist in the Database</td>
+    <?php
+}
 
-                                            if ($sql = $conn->query("SELECT * FROM $table_name[0] WHERE  name LIKE  '$k%' ;")) {
-                                                while ($rows = mysqli_fetch_array($sql)) {
-                                                    ?>
-                                                    <tr>
-                                                        <td>
-                                                            <?php echo $rows['Name']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $rows['Email']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $rows['Age']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $Rute ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo date('d/m/y', $Date) ?>
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                            } else { ?>
-                                                <td colspan="4">The Entered Name Does Not Exist in the Database</td>
-                                            <?php }
+
+
                                         }
                                         ?>
                                     </tbody>

@@ -42,28 +42,32 @@
     <tr>
       <th>UPI_ID</th>
       <th>Cancellation Reason</th>
+      <th>Amount</th>
       <th>Refund</th>
+
     </tr>
     <?php
     // Assuming you have a refund_data table in your database with columns order_id, refund_amount, and refund_reason
     // Replace the database credentials with your own
     require_once "admindb.php";
     
-    $sql = "SELECT UPI_ID, Cancell_Reason FROM refund";
+    $sql = "SELECT UPI_ID, Cancell_Reason,amount FROM refund";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $row["UPI_ID"] . "</td>";
-        echo "<td>" . $row["Cancell_Reason"] . "</td>";
-        echo '<td><a href="refund_process.php?upi_id=' . urlencode($row["UPI_ID"]) . '">Refund</a></td>';
-        echo "</tr>";
+          echo "<tr>";
+          echo "<td>" . $row["UPI_ID"] . "</td>";
+          echo "<td>" . $row["Cancell_Reason"] . "</td>";
+          echo "<td>" . $row["amount"] . "</td>";
+          echo '<td><a href="refund_process.php?upi_id=' . urlencode($row["UPI_ID"]) . '&amount=' . urlencode($row["amount"]) . '">Refund</a></td>';
+          echo "</tr>";
       }
-    } else {
-      echo "<tr><td colspan='3'>No refund data available</td></tr>";
-    }
-    $conn->close();
+  } else {
+      echo "<tr><td colspan='4'>No refund data available</td></tr>";
+  }
+  $conn->close();
+  
     ?>
   </table>
 </body>

@@ -102,7 +102,9 @@
                                  <a href="Form.php">
                                 <img src="img/Gateway-of-India-1-ImResizer-ImResizer.jpg" alt="">
                                  </a>
-                                
+                                <div class="Price">
+                                    <p>399₹</p>
+                                </div>
                                 <div class="Rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -129,6 +131,9 @@
                                 <a href="Form.php">
                                 <img src="img/banglore.jpg" alt="">
                                 </a>
+                                <div class="Price">
+                                    <p>450₹</p>
+                                </div>
                                 <div class="Rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -156,6 +161,9 @@
                                 <a href="Form.php">
                                 <img src="img/Lotus-Tmple-Photo-by-Arpan-Das-980x614-ImResizer-ImResizer.jpg" alt="">
                                 </a>
+                                <div class="Price">
+                                    <p>1400₹</p>
+                                </div>
                                 <div class="Rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -292,6 +300,8 @@
                 <div class="footerrow">
                     <div class="footerleft">
                         <h1>Working Hours</h1>
+                        <i class="fa fa-comments"></i><a href="https://wa.me/918208147136">Contact on WhatsApp</a>
+
                         <p><i class="fa fa-clock-o"></i>Monday to Friday - 9am to 9pm </p>
                         <p><i class="fa fa-clock-o"></i>Saturday to Sunday - 8am to 11pm </p>
                     </div>

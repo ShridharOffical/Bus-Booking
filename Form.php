@@ -26,7 +26,6 @@ $route = $result->fetch_all();
     <div class="form-group">
         <form action="db_scripts/generate.php" method="post">
             <label id="bus">Select Your Route :-</label>
-
             <select id="route" required name="Route"> 
                 <option value=""> Choose route here</option>
                 <?php foreach ($route as $key => $value) {
@@ -42,8 +41,6 @@ $route = $result->fetch_all();
             <label id="bus">Select Your Date :-</label>
             <input required class="form" type="date" id="start" name="trip-start" min="<?php echo date('Y-m-d'); ?>"
                 value="">
-
-
             <br>
             <br>
             <label for="name">Name :-</label>

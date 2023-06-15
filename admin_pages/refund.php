@@ -1,4 +1,5 @@
 <?php
+
  //This block of code will stop the users from opening this page directly
 ?>
 <!DOCTYPE html>
@@ -68,25 +69,37 @@
 </head>
 
 <body>
-  <div class="container">
-    <h2>Cancel Ticket Refund Process </h2>
-    <h6>Plese Enter you UPI ID Payment to refund your Associate bank account.</h6>
+<div class="container">
+    <h2>Cancel Ticket Refund Process</h2>
+    <h6>Please enter your UPI ID Payment to refund your Associate bank account.</h6>
     <form action="../admin_pages/sendrefunddata.php" method="post">
-      <div class="form-group">
-        <label for="upi_id">UPI ID:</label>
-        <input type="text" id="upi_id" name="upi_id" required>
-      </div>
-      <div class="form-group">
-        <label for="refund_reason">Reason for cancellation:</label>
-        <textarea id="refund_reason" name="refund_reason" required></textarea>
-      </div>
-      <input type="submit" class="submit-btn" value="Cancel">
+        <div class="form-group">
+            <label for="upi_id">UPI ID:</label>
+            <input type="text" id="upi_id" name="upi_id" required>
+        </div>
+        <?php
+      session_start(); // Start the session
+
+      $amount = $_SESSION['amount']; // Retrieve the value from the session variable
+      
+       $originalAmount = $amount; // Rseplace 100 with the actual original amount
+       $cancellationFee = $originalAmount * 0.2; // Calculate 20% of the original amount
+       $finalAmount = $originalAmount - $cancellationFee; // Deduct the cancellation fee
+       echo "Original Amount: " . $originalAmount . "<br>";
+       echo "Cancellation Fee: " . $cancellationFee . "<br>";
+       echo "<input type='text' id='refund_amount' name='refund_amount' value='$finalAmount' readonly>";
+
+        ?>
+        <div class="form-group">
+            <label for="refund_reason">Reason for cancellation:</label>
+            <textarea id="refund_reason" name="refund_reason" required></textarea>
+        </div>
+        <input type="submit" class="submit-btn" value="Cancel">
     </form>
     <div class="message">
-      <p>If refund was not added in your account, please contact us on WhatsApp <a
-          href="https://wa.me/918208147136">+918208147136</a>.</p>
+        <p>If the refund was not added to your account, please contact us on WhatsApp <a href="https://wa.me/918208147136">+918208147136</a>.</p>
     </div>
-  </div>
+</div>
 </body>
 
 </html>

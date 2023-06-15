@@ -50,7 +50,7 @@ while ($table_row = $table_query->fetch_array()) {
       $dataActive[] = $email_row;
       $checkbox[] = $table_name;
     }
-    else if ($status == 'Cancelled') {
+    else if ($status == 'Cancelled' or $status=='Expired') {
       $dataInactive[] = $email_row;
     }
     

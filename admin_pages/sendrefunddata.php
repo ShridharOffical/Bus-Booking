@@ -7,12 +7,12 @@ $conn = new mysqli($hn,$un,$pw,$db);
 
 $upiId = $_POST['upi_id'];
 $refundReason = $_POST['refund_reason'];
-
+$refundamount = $_POST['refund_amount'];
 // Prepare the INSERT statement
-$stmt = $conn->prepare("INSERT INTO refund ( UPI_ID , Cancell_Reason ) VALUES (?, ?)");
+$stmt = $conn->prepare("INSERT INTO refund ( UPI_ID , Cancell_Reason,amount ) VALUES (?, ?, ?)");
 
 // Bind the parameter values
-$stmt->bind_param('ss', $upiId, $refundReason);
+$stmt->bind_param('ssd', $upiId, $refundReason,$refundamount);
 
 // Execute the query
 if ($stmt->execute()) {

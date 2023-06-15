@@ -9,6 +9,10 @@ $seatcounter = 0;
 
 var_dump($GetSeatArray);
 
+session_start(); // Start the session
+
+$amount = 0; // Initialize the amount
+
 foreach ($GetSeatArray as $checkboxValue) {
     $tableAndSeatNo = explode('-', $checkboxValue);
     $table_name = $tableAndSeatNo[0];
@@ -22,6 +26,14 @@ foreach ($GetSeatArray as $checkboxValue) {
         $row = mysqli_fetch_assoc($result);
         $date = $row['Date'];
         $route = $row['Route'];
+
+        if ($route == 'KolhapurtoBanglore' || $route == 'BangloreToKolhapur') {
+            $amount += 450;
+        } elseif ($route == 'KolhapurtoDelhi' || $route == 'DelhiToKolhapur') {
+            $amount += 1400;
+        } elseif ($route == 'KolhapurtoMumbai' || $route == 'MumbaiTokolhapur') {
+            $amount += 399;
+        }
 
         // Update the table by setting the Status as 'Cancelled' and IsTaken as 0
         $updateQuery = "UPDATE $table_name SET Status='Cancelled', IsTaken=0 WHERE Seat_no='$seatNo'";
@@ -40,6 +52,8 @@ foreach ($GetSeatArray as $checkboxValue) {
         echo "No row found for the given seat in table $table_name";
     }
 }
+
+$_SESSION['amount'] = $amount; // Store the accumulated amount in a session variable
 
 // Redirect to refund.php
 header("Location: ../admin_pages/refund.php");

@@ -14,7 +14,7 @@
       <body>
         <div class="movie-container">
           <select id="movie">
-            <option value="450">Advance Booking Rs(450)</option>
+            <option value="450">Advance Booking</option>
           </select>
         </div>
         

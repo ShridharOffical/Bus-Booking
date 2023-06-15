@@ -1,4 +1,5 @@
 <?php
+require 'getCancelSeats.php';
  //This block of code will stop the users from opening this page directly!
  if ($_SERVER['HTTP_REFERER'] !== 'ex.php') {
   header('Location: ex.php');
@@ -80,6 +81,20 @@
         <label for="upi_id">UPI ID:</label>
         <input type="text" id="upi_id" name="upi_id" required>
       </div>
+      <h6>20% amount will be minus  for cancellation fees :</h6>
+    
+      <?php
+      session_start(); // Start the session
+
+      $amount = $_SESSION['amount']; // Retrieve the value from the session variable
+      
+       $originalAmount = $amount; // Rseplace 100 with the actual original amount
+       $cancellationFee = $originalAmount * 0.2; // Calculate 20% of the original amount
+       $finalAmount = $originalAmount - $cancellationFee; // Deduct the cancellation fee
+       echo "Original Amount: " . $originalAmount . "<br>";
+       echo "Cancellation Fee: " . $cancellationFee . "<br>";
+       echo "Final Amount after Deducting Cancellation Fee: " . $finalAmount;
+        ?>
       <div class="form-group">
         <label for="refund_reason">Reason for cancellation:</label>
         <textarea id="refund_reason" name="refund_reason" required></textarea>
