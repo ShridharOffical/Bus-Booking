@@ -1,6 +1,12 @@
 <?php
       require_once 'db_scripts/fetch_seats.php';
       require_once "db_scripts/admindb.php";
+      //Fetching the rate of the selected route for user convinience
+      $route = $_SESSION['Road'];
+      $query = "select amount from `fares` where route='$route'";
+      $result = $conn->query($query);
+      $fetched = $result->fetch_row();
+      $route_amount = $fetched[0];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +20,7 @@
       <body>
         <div class="movie-container">
           <select id="movie">
-            <option value="450">Advance Booking</option>
+            <option value="<?php echo $route_amount; ?>">Advance Booking</option>
           </select>
         </div>
         
