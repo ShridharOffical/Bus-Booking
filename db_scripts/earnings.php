@@ -14,13 +14,13 @@ $conn2 = new mysqli($hn, $un, $pw, $db); // connects to the db table
 $tables = mysqli_query($conn, "SHOW TABLES");
 $total_earnings = 0; //^ will store the total earnings
 $total_seats = 0;
-$routefetch = $conn2->query("select * from fares");
 
 while ($table = mysqli_fetch_object($tables)) {
-
+    
     $table_name = $table->{"Tables_in_learn"};
-
+    
     $results = mysqli_query($conn, "SELECT * FROM `$table_name` WHERE IsTaken=1");
+    $routefetch = $conn2->query("select * from fares"); //This line was moved inside the while loop and will fetch for each table
 
     if ($results) {
         while ($routeTable = mysqli_fetch_row($routefetch)) {
