@@ -9,7 +9,7 @@ $upiId = $_POST['upi_id'];
 $refundReason = $_POST['refund_reason'];
 $refundamount = $_POST['refund_amount'];
 // Prepare the INSERT statement
-$stmt = $conn->prepare("INSERT INTO refund ( UPI_ID , Cancell_Reason,amount ) VALUES (?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO refund ( UPI_ID , Cancel_Reason,amount ) VALUES (?, ?, ?)");
 
 // Bind the parameter values
 $stmt->bind_param('ssd', $upiId, $refundReason,$refundamount);
