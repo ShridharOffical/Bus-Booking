@@ -41,26 +41,23 @@
   <table>
     <tr>
       <th>UPI_ID</th>
-      <th>Cancellation Reason</th>
       <th>Amount</th>
-      <th>Refund</th>
-
+      <th>Status</th>
     </tr>
     <?php
     // Assuming you have a refund_data table in your database with columns order_id, refund_amount, and refund_reason
     // Replace the database credentials with your own
     require_once "admindb.php";
     echo "<button class='my-button' onclick=redirectToIndex()>Back to Dashbord</button>";
-    $sql = "SELECT UPI_ID, Cancel_Reason,amount FROM refund";
+    $sql = "SELECT UPI_ID,amount,'status' FROM refundrecord";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
           echo "<tr>";
           echo "<td>" . $row["UPI_ID"] . "</td>";
-          echo "<td>" . $row["Cancel_Reason"] . "</td>";
           echo "<td>" . $row["amount"] . "</td>";
-          echo '<td><a href="refund_process.php?upi_id=' . urlencode($row["UPI_ID"]) . '&amount=' . urlencode($row["amount"]) . '">Refund</a></td>';
+          echo "<td>" . $row["status"] . "</td>";
           echo "</tr>";
       }
   } else {

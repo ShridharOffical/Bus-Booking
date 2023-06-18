@@ -20,7 +20,7 @@
       <body>
         <div class="movie-container">
           <select id="movie">
-            <option value="<?php echo $route_amount; ?>">Advance Booking</option>
+            <option value="<?php echo $route_amount; ?>"><?php echo $route?></option>
           </select>
         </div>
         

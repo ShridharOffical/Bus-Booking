@@ -121,7 +121,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="../db_scripts/refund_table.php" aria-expanded="false">
                                 <i class="bi bi-ticket-detailed"></i>
-                                <span class="hide-menu" style="color: red;"> Refund_Users </span>
+                                <span class="hide-menu" style="color: red;"> Refund Users </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="../db_scripts/refund_records.php" aria-expanded="false">
+                                <i class="bi bi-ticket-detailed"></i>
+                                <span class="hide-menu" style="color: red;"> Refund Records </span>
                             </a>
                         </li>
 
@@ -236,7 +243,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                         class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Search</button>
                                 </div>
                             </form>
-
+                                  
                             <div class="table-responsive">
                                 <table class="table no-wrap">
                                     <thead>
@@ -265,7 +272,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                                 
                                                 while ($rows = mysqli_fetch_array($sql)) {
                                                     ?>
-
+                                                    
                                                     <tr>
                                                         <td>
                                                             <?php echo $rows['Name']; ?>
@@ -287,6 +294,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                                     <?php
 
                                                 }
+                                                echo '<button onclick="printTable()" class="button">Print</button>';
+
                                                 
                                                 $sql2 = "SELECT COUNT(*) AS seatCount FROM $table_name WHERE IsTaken=1";
                                                 $result = mysqli_query($conn, $sql2);
@@ -383,6 +392,145 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
         <script>
             document.getElementById('start').valueAsDate = new Date();
         </script>
+       <script>
+  function printTable() {
+    // Create a new window for printing
+    var printWindow = window.open('', '_blank');
+
+    // Generate the HTML content to be printed
+    var tableHTML = document.getElementById('an').outerHTML;
+  var formattedDate = "<?php echo $formattedDate; ?>";
+  var selectedRoute = "<?php echo $selectedRoute; ?>";
+  var totalAmount = "<?php echo $totalAmount; ?>";
+  var seatCount = "<?php echo $seatCount; ?>";
+    var receiptHTML = `
+      <html>
+      <head>
+        <title>Print</title>
+        <style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #F8FAF5;
+  }
+
+  .receipt {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .receipt-header {
+    margin-bottom: 20px;
+  }
+
+  .receipt-title {
+    color: #88B04B;
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .receipt-info {
+    font-size: 14px;
+    color: #555555;
+    margin-top: 10px;
+  }
+
+  table {
+    width: 100%;
+    border: 1px solid;
+    margin-bottom: 20px;
+  }
+
+   td {
+    padding: 10px;
+    color:black;
+    border-bottom: 1px solid #ECECEC;
+    vertical-align: bottom;
+    text-align: left;
+  }
+
+  th {
+    padding: 10px;
+    
+    border-bottom: 1px solid #ECECEC;
+    vertical-align: bottom;
+    text-align: left;
+    color:white;
+    background:#000;
+  }
+
+  .receipt-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555555;
+  }
+</style>
+
+      </head>
+      <body>
+        <div class="receipt">
+          <h1>BusX</h1>
+          <p>Date: ${formattedDate}</p>
+          <p>Route: ${selectedRoute}</p>
+          <p>Total Earning Amount: ${totalAmount}</p>
+          <p>Number of Booked Seats: ${seatCount}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableHTML}
+            </tbody>
+          </table>
+          <p>|| Miles of smiles! Always going your way! ||</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Set the HTML content of the print window
+    printWindow.document.open();
+    printWindow.document.write(receiptHTML);
+    printWindow.document.close();
+
+    // Call the print function of the print window
+    printWindow.print();
+  }
+</script>
+
+<style>
+  .button {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 17px;
+    padding: 10px 30px;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+    float: right;
+    right: 20px;
+    bottom: 20px;
+    z-index: 999;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color:black;
+  }
+</style>
+
 </body>
 
 

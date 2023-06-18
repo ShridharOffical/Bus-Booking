@@ -1,91 +1,100 @@
 <?php
+  session_start();
   require_once 'db_scripts/Send_form_data.php';
   require_once 'db_scripts/send_seats.php';
-
-  
 ?>
 
 <!DOCTYPE html>
 <html>
-  <head>
-  </head>
-    <style>
-      body {
-        text-align: center;
-        
-        background: #EBF0F5;
-      }
-        h1 {
-          color: #88B04B;
-          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
-          font-weight: 900;
-          font-size: 40px;
-          margin-bottom: 10px;
-        }
-        p {
-          color: #404F5E;
-          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
-          font-size:20px;
-          margin: 0;
-        }
-      i {
-        color: #9ABC66;
-        font-size: 100px;
-        line-height: 200px;
-        margin-left:-15px;
-      }
-      .card {
-        background: white;
-        padding: 40px;
-        border-radius: 4px;
-        box-shadow: 0 2px 3px #C8D0D8;
-        display: inline-block;
-        margin: 0 auto;
-      }
-      .homepage{
-  background-color: rgba(133, 28, 14, 0.61);
-  width: 200px;
-  font-weight: bolder;
-  height: 45px;
-  font-size: 18px;
-  margin-top: 5px;
-  color: rgb(12, 12, 12);
-  cursor: pointer;
-  justify-content: center;
-  border-radius: 17px;
-  text-decoration: none;
+<head>
+  <style>
+    body {
+      text-align: center;
+      background: #EBF0F5;
+    }
 
-      }
-    </style>
-    <body>
-      <div class="card">
-      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
-        <i class="checkmark">✓</i>
-      </div>
-        <h1> Payment Successful</h1>
-        <h2 class="name">Your Name </h2>
-        <h2 class="name"> <?php echo $_SESSION['Name'] . "<br>"?></h2>
-        <br>
-        <h2 class="Email">Your Email</h3>
-        <h2 class="name"> <?php echo $_SESSION['Email'] . "<br>"?></h2>
-        <br>
-        <h2 class="Seat">Your Seats</h2>
-        <h2 class="name"> <?php echo $_COOKIE['Seats'] . "<br>"?></h2>
-        <br>
-        <h2 class="Seat">Route (Short Form)</h2>
-        <h2 class="name"> <?php echo $_SESSION['Road'] . "<br>"?></h2>
-        <br>
-        <h2 class="Seat">Date</h2>
-        <h2 class="name"> <?php echo $_SESSION['Date'] . "<br>"?></h2>
-        <br>
-        <p>Your Ticket Recipt will be printed now.<br/>Thank You for Booking Ticket with Us.</p>
-      <a href="index.php"><button class="homepage">Back To Homepage</button></a>
-    </div>
-    </body>
+    .receipt {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 3px #C8D0D8;
+      font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+    }
+
+    .checkmark {
+      display: inline-block;
+      font-size: 100px;
+      color: #9ABC66;
+      line-height: 200px;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      color: #88B04B;
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #404F5E;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .info {
+      color: #707070;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      background-color: #851C0E;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 17px;
+      padding: 10px 30px;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt">
+    <div class="checkmark">✓</div>
+    <h1 class="title">Payment Successful</h1>
+
+    <div class="subtitle">Your Name</div>
+    <div class="info"><?php echo $_SESSION['Name']; ?></div>
+
+    <div class="subtitle">Your Email</div>
+    <div class="info"><?php echo $_SESSION['Email']; ?></div>
+
+    <div class="subtitle">Your Seats</div>
+    <div class="info"><?php echo $_COOKIE['Seats']; ?></div>
+    
+    <div class="subtitle">Route (Short Form)</div>
+    <div class="info"><?php echo $_SESSION['Road']; ?></div>
+
+    <div class="subtitle">Date</div>
+    <div class="info"><?php echo $_SESSION['Date']; ?></div>
+
+    <p>Your Ticket Receipt will be printed now.<br>Thank you for booking a ticket with us.</p>
+    <a href="index.php" class="button">Back To Homepage</a>
+  </div>
+
+  <script>
+    window.onload = function() {
+      window.print();
+    };
+  </script>
+</body>
 </html>
- <script>
-   print();
- </script>
+
 <?php
   session_destroy();
 ?>

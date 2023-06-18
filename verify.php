@@ -22,8 +22,14 @@ if ($entered_otp == $generatedOTP) {
 
 } else {
     echo $entered_otp;
-    echo $_SESSION['generatedOTP'];
-    echo "OTP not matched!";
+    ?>
+    <script>
+        alert("OTP not matched!");
+        window.location.href = "GetOtp.html";
+    </script>
+
+    <?php
+    
 }
 
 ?>

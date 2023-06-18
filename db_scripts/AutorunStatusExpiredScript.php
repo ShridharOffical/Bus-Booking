@@ -13,7 +13,7 @@ $tables = array();
 while ($row = $tablesResult->fetch_array()) {
 
     $tables[] = $row[0];
-   // echo $row[0];
+  
 }
 
 $currentDate = date('Y-m-d');
@@ -31,9 +31,7 @@ foreach ($tables as $table) {
     
         if (!$result) {
             echo "Error updating table: $tableName - " . $conn->error . "<br>";
-        } else {
-            echo "Table updated successfully: $tableName<br>";
-        }
+        } 
     
         $filterTables[] = $tableName;
     }

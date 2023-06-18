@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paymentAmount = $_POST['payment_amount'];
 
     // Insert information into refund_records table
-    $insertQuery = "INSERT INTO refundrecords (upi_id, amount, status) VALUES ('$upiId', '$paymentAmount', 'refunded')";
+    $insertQuery = "INSERT INTO refundrecord (upi_id, amount, status) VALUES ('$upiId', '$paymentAmount', 'refunded')";
     $hn = "localhost";
     $un = "root";
     $pw = "";
