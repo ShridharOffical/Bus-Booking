@@ -51,14 +51,14 @@
     // Replace the database credentials with your own
     require_once "admindb.php";
     
-    $sql = "SELECT UPI_ID, Cancell_Reason,amount FROM refund";
+    $sql = "SELECT UPI_ID, Cancel_Reason,amount FROM refund";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
           echo "<tr>";
           echo "<td>" . $row["UPI_ID"] . "</td>";
-          echo "<td>" . $row["Cancell_Reason"] . "</td>";
+          echo "<td>" . $row["Cancel_Reason"] . "</td>";
           echo "<td>" . $row["amount"] . "</td>";
           echo '<td><a href="refund_process.php?upi_id=' . urlencode($row["UPI_ID"]) . '&amount=' . urlencode($row["amount"]) . '">Refund</a></td>';
           echo "</tr>";
