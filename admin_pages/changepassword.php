@@ -169,10 +169,7 @@
                             <button  type="submit" onclick="logs()" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem; margin-left:auto; margin-right:auto; margin-bottom:30px;">Change Password</button>
                         </div>
                     </form>
-
-
-
-                    <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a href="https://www.wrappixel.com/">wrappixel.com</a>
+                    <footer class="footer text-center"> 2023 © BusX <a href="">wrappixel.com</a>
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->

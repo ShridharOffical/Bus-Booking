@@ -48,12 +48,11 @@ $route = $result->fetch_all();
             <br>
             <br>
             <label for="email">Email :-</label>
-            <input class="form-control" type="email" placeholder="Enter your Email ID " name="email">
+            <input class="form-control" type="email" placeholder="Enter your Email ID " name="email" required>
             <br>
             <br>
             <label for="age">Age :-</label>
-            <input class="form-control" name="age" type="number" data-mask="000" placeholder="Enter Your age"
-                maxlength="2" size="2" ">
+            <input class="form-control" name="age" type="number" data-mask="000" placeholder="Enter Your age" maxlength="2" size="2" required>
     <br>
     <br>
 

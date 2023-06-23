@@ -49,7 +49,7 @@
     // Replace the database credentials with your own
     require_once "admindb.php";
     echo "<button class='my-button' onclick=redirectToIndex()>Back to Dashbord</button>";
-    $sql = "SELECT UPI_ID,amount,'status' FROM refundrecord";
+    $sql = "SELECT UPI_ID,amount, status FROM refundrecord";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
