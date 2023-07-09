@@ -260,7 +260,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
 
                                         try {
                                             require "../db_scripts/login.php";
-
+                                            if (isset($_GET['route']) and isset($_GET['day'])) {
+                                                
                                             $k = $_GET['route'] . $_GET['day'];
                                             $root = $_GET['route'];
 
@@ -348,14 +349,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                             }
 
                                         
-                                      
+                                        }
 
                                         //catch exception
                                         catch (Exception $e) {
                                             echo "<h5 style=color:red>!! On This Date , Data is Not avaible Please chnage Date.</h5>";
                                         }
 
-
+                                    
 
 
                                         ?>

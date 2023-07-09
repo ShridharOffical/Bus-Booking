@@ -189,6 +189,7 @@
                                     <tbody id="an">
                                         <?php
                                         require "../db_scripts/login.php";
+                                        if (isset($_GET['name_query'])) {
 
                                         $k = $_GET['name_query'];
                                         $k[0] = '_'; // changing the first character of the name string
@@ -234,7 +235,7 @@
 }
 
 
-
+                                        }
                                         }
                                         ?>
                                     </tbody>
